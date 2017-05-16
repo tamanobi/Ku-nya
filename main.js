@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
         e.illustrationId,
         e.illustrationUrl,
         e.illustrationTitle,
-        e.userName,
+        e.userName
       ));
     });
 
