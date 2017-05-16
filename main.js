@@ -57,7 +57,7 @@ function createIllustrationElement(imageUrl, title, author) {
 }
 
 function createGalleryItem(illustrationId, imageUrl, title, author) {
-    var linkUrl = 'https://www.pixiv.net/i/' + String(illustrationId);
+    var linkUrl = 'https://www.pixiv.net/i/' + illustrationId;
     var img = createIllustrationElement(imageUrl, title, author);
     var anchor = document.createElement('a');
     anchor.setAttribute('href', linkUrl);
