@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
     values.forEach(function (response) {
       if (response.status === 200) {
         // Extracting illustration info
-        response.data.contents.forEach(function (e) {
+        response.data.contents.forEach(function (content) {
             illustrations.push({
-              'illustrationId': e.illust_id,
-              'illustrationUrl': e.url,
-              'illustrationTitle': e.title,
-              'userName': e.user_name,
+              'illustrationId': content.illust_id,
+              'illustrationUrl': content.url,
+              'illustrationTitle': content.title,
+              'userName': content.user_name,
             });
         });
       }
