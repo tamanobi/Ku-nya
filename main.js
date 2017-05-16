@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     });
 
     items.forEach(function (item) {
-      document.body.querySelector('#gallery').appendChild(item);
+      document.querySelector('#gallery').appendChild(item);
     });
   }).catch(function (response) {
     console.log(response);
