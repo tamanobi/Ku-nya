@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
       ));
     });
 
-    items.forEach(function (e) {
-      document.body.querySelector('#gallery').appendChild(e);
+    items.forEach(function (item) {
+      document.body.querySelector('#gallery').appendChild(item);
     });
   }).catch(function (response) {
     console.log(response);
