@@ -13,19 +13,21 @@ img {vertical-align: top;}
 }
 
 #gallery {
-  position: relative;
   background-color:#fefefe;
+  column-count: 5;
+  column-gap: 1em;
+  z-index: 1;
 }
 
 #gallery a img.loaded {
   opacity: 0.55;
+  background-color: #eee;
+  display: inline-block;
+  margin: 0 0 1em;
+  width: 100%;
 }
 
-#gallery a {
-  position: relative;
-  z-index: 1;
-  margin: 3px;
-}
+#gallery a {}
 
 #gallery a img{
   opacity: 0.0;

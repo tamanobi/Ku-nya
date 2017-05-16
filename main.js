@@ -3,12 +3,10 @@ document.addEventListener('DOMContentLoaded', function(event) {
   var sourceUri = 'https://www.pixiv.net/ranking.php?mode=daily&format=json&content=illust';
   var promiseList = [];
 
-  var p1 = axios.get(sourceUri + '&p=1');
-  var p2 = axios.get(sourceUri + '&p=2');
-  var p3 = axios.get(sourceUri + '&p=3');
-  promiseList.push(p1);
-  promiseList.push(p2);
-  promiseList.push(p3);
+  for (var i = 1; i <= 3; i++) {
+    var p = axios.get(sourceUri + '&p=' + i);
+    promiseList.push(p);
+  }
 
   Promise.all(promiseList).then(function(values) {
     var items = [];
@@ -45,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
     });
   }).catch(function(response) {
     console.log(response);
-    console.log('http request error');
   });
 });
 

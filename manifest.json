@@ -1,6 +1,6 @@
 {
   "name": "Ku-nya",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "manifest_version": 2,
   "description": "Ku-nya is Chrome Extension for pixiv lovers. It picks pixiv ranking illustrations up randomly and display them on your new tab.",
   "icons": {},
