@@ -17,7 +17,7 @@
   z-index: 2;
 }
 
-#gallery a img{
+#gallery a img {
   opacity: 0.0;
   vertical-align: top;
   transition-property: all;
@@ -34,6 +34,6 @@
   width: 100%;
 }
 
-#gallery a img:hover{
+#gallery a img:hover {
   opacity: 1;
 }
