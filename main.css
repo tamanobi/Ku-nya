@@ -1,4 +1,9 @@
-img {vertical-align: top;}
+#gallery {
+  background-color:#fefefe;
+  column-count: 5;
+  column-gap: 1em;
+  z-index: 1;
+}
 
 #gallery::before {
   pointer-events: none;
@@ -12,11 +17,13 @@ img {vertical-align: top;}
   z-index: 2;
 }
 
-#gallery {
-  background-color:#fefefe;
-  column-count: 5;
-  column-gap: 1em;
-  z-index: 1;
+#gallery a img{
+  opacity: 0.0;
+  vertical-align: top;
+  transition-property: all;
+  transition-duration: 300ms;
+  transition-delay: 0s;
+  transition-timing-function: ease;
 }
 
 #gallery a img.loaded {
@@ -25,16 +32,6 @@ img {vertical-align: top;}
   display: inline-block;
   margin: 0 0 1em;
   width: 100%;
-}
-
-#gallery a {}
-
-#gallery a img{
-  opacity: 0.0;
-  transition-property: all;
-  transition-duration: 300ms;
-  transition-delay: 0s;
-  transition-timing-function: ease;
 }
 
 #gallery a img:hover{
