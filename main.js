@@ -1,5 +1,5 @@
 'use restrict';
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', function (event) {
   var sourceUri = 'https://www.pixiv.net/ranking.php?mode=daily&format=json&content=illust';
   var promiseList = [];
 
@@ -8,18 +8,18 @@ document.addEventListener('DOMContentLoaded', function(event) {
     promiseList.push(p);
   }
 
-  Promise.all(promiseList).then(function(values) {
+  Promise.all(promiseList).then(function (values) {
     var items = [];
     var illustrations = [];
-    values.forEach(function(response) {
+    values.forEach(function (response) {
       if (response.status === 200) {
         // Extracting illustration info
         response.data.contents.forEach(function (e) {
             illustrations.push({
-              'illustrationId':e.illust_id,
-              'illustrationUrl':e.url,
-              'illustrationTitle':e.title,
-              'userName':e.user_name,
+              'illustrationId': e.illust_id,
+              'illustrationUrl': e.url,
+              'illustrationTitle': e.title,
+              'userName': e.user_name,
             });
         });
       }
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     illustrations = shuffle(illustrations);
 
     // Inserting elements to a New tab page body.
-    illustrations.forEach(function(e) {
+    illustrations.forEach(function (e) {
       items.push(createGalleryItem(
         e.illustrationId,
         e.illustrationUrl,
@@ -38,32 +38,26 @@ document.addEventListener('DOMContentLoaded', function(event) {
       ));
     });
 
-    items.forEach(function(e) {
+    items.forEach(function (e) {
       document.body.querySelector('#gallery').appendChild(e);
     });
-  }).catch(function(response) {
+  }).catch(function (response) {
     console.log(response);
   });
 });
 
-function makeMemberIllustUrl(IllustrationId) {
-  return 'https://www.pixiv.net/i/' + String(IllustrationId);
-}
-
-function loadedCallback(e) {
-  e.target.classList.add('loaded');
-}
-
 function createIllustrationElement(imageUrl, title, author) {
   var img = new Image();
   img.src = imageUrl;
-  img.onload = loadedCallback;
+  img.addEventListener('load', function (e) {
+    e.target.classList.add('loaded');
+  });
   img.alt = author + ' / ' + title;
   return img;
 }
 
 function createGalleryItem(illustrationId, imageUrl, title, author) {
-    var linkUrl = makeMemberIllustUrl(illustrationId);
+    var linkUrl = 'https://www.pixiv.net/i/' + illustrationId;
     var img = createIllustrationElement(imageUrl, title, author);
     var anchor = document.createElement('a');
     anchor.setAttribute('href', linkUrl);
