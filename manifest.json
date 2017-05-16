@@ -7,10 +7,6 @@
   "chrome_url_overrides": {
     "newtab": "newTab.html"
   },
-  "background": {
-    "scripts": [
-      "background.js"
-    ]
-  },
+  "background": {},
   "permissions": ["https://www.pixiv.net/"]
 }
