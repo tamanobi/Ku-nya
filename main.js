@@ -1,6 +1,6 @@
 'use restrict';
 document.addEventListener('DOMContentLoaded', function(event) {
-  var sourceUri = 'https://www.pixiv.net/ranking.php?mode=daily&p=2&format=json&content=illust';
+  var sourceUri = 'https://www.pixiv.net/ranking.php?mode=daily&format=json&content=illust';
   var promiseList = [];
   var p1 = axios.get(sourceUri + '&p=1');
   var p2 = axios.get(sourceUri + '&p=2');
