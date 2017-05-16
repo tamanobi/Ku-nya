@@ -50,14 +50,12 @@ function makeMemberIllustUrl(IllustrationId) {
   return 'https://www.pixiv.net/i/' + String(IllustrationId);
 }
 
-function loadedCallback(e) {
-  e.target.classList.add('loaded');
-}
-
 function createIllustrationElement(imageUrl, title, author) {
   var img = new Image();
   img.src = imageUrl;
-  img.onload = loadedCallback;
+  img.addEventListener('load', function (e) {
+    e.target.classList.add('loaded');
+  });
   img.alt = author + ' / ' + title;
   return img;
 }
