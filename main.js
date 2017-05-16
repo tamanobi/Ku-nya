@@ -46,10 +46,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
   });
 });
 
-function makeMemberIllustUrl(IllustrationId) {
-  return 'https://www.pixiv.net/i/' + String(IllustrationId);
-}
-
 function createIllustrationElement(imageUrl, title, author) {
   var img = new Image();
   img.src = imageUrl;
@@ -61,7 +57,7 @@ function createIllustrationElement(imageUrl, title, author) {
 }
 
 function createGalleryItem(illustrationId, imageUrl, title, author) {
-    var linkUrl = makeMemberIllustUrl(illustrationId);
+    var linkUrl = 'https://www.pixiv.net/i/' + String(IllustrationId);
     var img = createIllustrationElement(imageUrl, title, author);
     var anchor = document.createElement('a');
     anchor.setAttribute('href', linkUrl);
