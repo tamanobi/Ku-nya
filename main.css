@@ -36,3 +36,7 @@ img {vertical-align: top;}
   transition-delay: 0s;
   transition-timing-function: ease;
 }
+
+#gallery a img:hover{
+  opacity: 1;
+}
