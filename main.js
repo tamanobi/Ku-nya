@@ -1,16 +1,16 @@
 'use restrict';
 document.addEventListener('DOMContentLoaded', (event) => {
-  var sourceUri = 'https://www.pixiv.net/ranking.php?mode=daily&format=json&content=illust';
-  var promiseList = [];
+  const SOURCE_URI = 'https://www.pixiv.net/ranking.php?mode=daily&format=json&content=illust';
+  const promiseList = [];
 
-  for (var i = 1; i <= 3; i++) {
-    var p = axios.get(sourceUri + '&p=' + i);
+  for (let i = 1; i <= 3; i++) {
+    const p = axios.get(SOURCE_URI + '&p=' + i);
     promiseList.push(p);
   }
 
   Promise.all(promiseList).then((values) => {
-    var items = [];
-    var illustrations = [];
+    const items = [];
+    let illustrations = [];
 
     values.forEach((response) => {
       if (response.status === 200) {
@@ -60,16 +60,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 function createIllustrationElement(imageUrl, title, author) {
-  var img = new Image();
+  const img = new Image();
   img.src = imageUrl;
   img.alt = author + ' / ' + title;
   return img;
 }
 
 function createGalleryItem(illustrationId, imageUrl, title, author) {
-    var linkUrl = 'https://www.pixiv.net/i/' + illustrationId;
-    var img = createIllustrationElement(imageUrl, title, author);
-    var anchor = document.createElement('a');
+    const linkUrl = 'https://www.pixiv.net/i/' + illustrationId;
+    const img = createIllustrationElement(imageUrl, title, author);
+    const anchor = document.createElement('a');
     anchor.setAttribute('href', linkUrl);
     anchor.setAttribute('target', 'pixiv');
     anchor.appendChild(img);
@@ -77,11 +77,11 @@ function createGalleryItem(illustrationId, imageUrl, title, author) {
 }
 
 function shuffle(array) {
-  var n = array.length, t, i;
+  let n = array.length;
 
   while (n) {
-    i = Math.floor(Math.random() * n--);
-    t = array[n];
+    const i = Math.floor(Math.random() * n--);
+    const t = array[n];
     array[n] = array[i];
     array[i] = t;
   }
