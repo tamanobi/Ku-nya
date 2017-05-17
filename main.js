@@ -1,5 +1,5 @@
 'use restrict';
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', event => {
   const SOURCE_URI = 'https://www.pixiv.net/ranking.php?mode=daily&format=json&content=illust';
   const promiseList = [];
 
@@ -46,8 +46,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
       });
     }));
   })
-  .then((items) => {
-    items.forEach((item) => {
+  .then(items => {
+    items.forEach(item => {
       document.querySelector('#gallery').appendChild(item.anchor);
     });
 
