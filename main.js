@@ -1,5 +1,5 @@
 'use restrict';
-document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', (event) => {
   var sourceUri = 'https://www.pixiv.net/ranking.php?mode=daily&format=json&content=illust';
   var promiseList = [];
 
@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', function (event) {
     promiseList.push(p);
   }
 
-  Promise.all(promiseList).then(function (values) {
+  Promise.all(promiseList).then((values) => {
     var items = [];
     var illustrations = [];
 
-    values.forEach(function (response) {
+    values.forEach((response) => {
       if (response.status === 200) {
         // Extracting illustration info
-        response.data.contents.forEach(function (content) {
+        response.data.contents.forEach((content) => {
             illustrations.push({
               'illustrationId': content.illust_id,
               'illustrationUrl': content.url,
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     illustrations = shuffle(illustrations);
 
     // Inserting elements to a New tab page body.
-    illustrations.forEach(function (illust) {
+    illustrations.forEach((illust) => {
       items.push(createGalleryItem(
         illust.illustrationId,
         illust.illustrationUrl,
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     setTimeout(() => {
       items.forEach((item) => item.img.classList.add('loaded'));
     }, 125);
-  }).catch(function (response) {
+  }).catch((response) => {
     console.log(response);
   });
 });
