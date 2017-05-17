@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', event => {
   const promiseList = [];
 
   for (let i = 1; i <= 3; i++) {
-    const p = axios.get(SOURCE_URI + '&p=' + i);
+    const p = axios.get(`${SOURCE_URI}&p=${i}`);
     promiseList.push(p);
   }
 
@@ -67,7 +67,7 @@ function createIllustrationElement(imageUrl, title, author) {
 }
 
 function createGalleryItem(illustrationId, imageUrl, title, author) {
-    const linkUrl = 'https://www.pixiv.net/i/' + illustrationId;
+    const linkUrl = `https://www.pixiv.net/i/${illustrationId}`;
     const img = createIllustrationElement(imageUrl, title, author);
     const anchor = document.createElement('a');
     anchor.setAttribute('href', linkUrl);
