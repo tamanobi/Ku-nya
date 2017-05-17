@@ -71,6 +71,7 @@ function createGalleryItem(illustrationId, imageUrl, title, author) {
     var img = createIllustrationElement(imageUrl, title, author);
     var anchor = document.createElement('a');
     anchor.setAttribute('href', linkUrl);
+    anchor.setAttribute('target', 'pixiv');
     anchor.appendChild(img);
     return {anchor, img};
 }
