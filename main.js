@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     promiseList.push(p);
   }
 
-  Promise.all(promiseList).then((values) => {
+  Promise.all(promiseList).then(values => {
     const items = [];
     let illustrations = [];
 
-    values.forEach((response) => {
+    values.forEach(response => {
       if (response.status === 200) {
         // Extracting illustration info
-        response.data.contents.forEach((content) => {
+        response.data.contents.forEach(content => {
             illustrations.push({
               'illustrationId': content.illust_id,
               'illustrationUrl': content.url,
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     illustrations = shuffle(illustrations);
 
     // Inserting elements to a New tab page body.
-    illustrations.forEach((illust) => {
+    illustrations.forEach(illust => {
       items.push(createGalleryItem(
         illust.illustrationId,
         illust.illustrationUrl,
@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     // Wait for image loading
-    return Promise.all(items.map((item) => {
-      return new Promise((resolve) => {
+    return Promise.all(items.map(item => {
+      return new Promise(resolve => {
         item.img.onload = item.img.onerror = () => resolve(item);
       });
     }));
@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     setTimeout(() => {
-      items.forEach((item) => item.img.classList.add('loaded'));
+      items.forEach(item => item.img.classList.add('loaded'));
     }, 125);
-  }).catch((response) => {
+  }).catch(response => {
     console.log(response);
   });
 });
