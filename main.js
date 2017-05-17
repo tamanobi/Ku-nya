@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   Promise.all(promiseList).then(function (values) {
     var items = [];
     var illustrations = [];
+
     values.forEach(function (response) {
       if (response.status === 200) {
         // Extracting illustration info
@@ -38,9 +39,21 @@ document.addEventListener('DOMContentLoaded', function (event) {
       ));
     });
 
-    items.forEach(function (item) {
-      document.querySelector('#gallery').appendChild(item);
+    // Wait for image loading
+    return Promise.all(items.map((item) => {
+      return new Promise((resolve) => {
+        item.img.onload = item.img.onerror = () => resolve(item);
+      });
+    }));
+  })
+  .then((items) => {
+    items.forEach((item) => {
+      document.querySelector('#gallery').appendChild(item.anchor);
     });
+
+    setTimeout(() => {
+      items.forEach((item) => item.img.classList.add('loaded'));
+    }, 125);
   }).catch(function (response) {
     console.log(response);
   });
@@ -49,9 +62,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
 function createIllustrationElement(imageUrl, title, author) {
   var img = new Image();
   img.src = imageUrl;
-  img.addEventListener('load', function (e) {
-    e.target.classList.add('loaded');
-  });
   img.alt = author + ' / ' + title;
   return img;
 }
@@ -62,7 +72,7 @@ function createGalleryItem(illustrationId, imageUrl, title, author) {
     var anchor = document.createElement('a');
     anchor.setAttribute('href', linkUrl);
     anchor.appendChild(img);
-    return anchor;
+    return {anchor, img};
 }
 
 function shuffle(array) {
