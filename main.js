@@ -1,9 +1,17 @@
 'use restrict';
 
+function setBooleanToLocalStorage(key, val) {
+  if (!window.localStorage) return false;
+  window.localStorage.setItem(key, ((val !== false)? '1': '0'));
+}
+
+function getBooleanFromLocalStorage(key) {
+  if (!window.localStorage) return false;
+  return (window.localStorage.getItem(key) === '0')? false: true;
+}
+
 function includes(sequence, needle) {
-    //console.log(sequence.length);
   return sequence.some(e => {
-      console.log(e, e.includes(needle), needle);
     return e === needle;
   });
 }
@@ -11,7 +19,6 @@ function includes(sequence, needle) {
 function init(content, _with_manga_tag, _with_big_height) {
   let with_manga_tag = (typeof _with_manga_tag !== undefined)?_with_manga_tag:false;
   let with_big_height = (typeof _with_big_height !== undefined)?_with_big_height:false;
-    console.log(with_manga_tag);
   let SOURCE_URI = `https://www.pixiv.net/ranking.php?mode=daily&format=json&content=${content}`;
   const promiseList = [];
 
@@ -36,8 +43,8 @@ function init(content, _with_manga_tag, _with_big_height) {
       let filtered = response.data.contents;
       if (!with_manga_tag) {
         filtered = filtered.filter(content => {
-          // OK -> return (includes(content.tags, 'Fate/GrandOrder') === true);
-          // NG -> return (includes(content.tags, '漫画') === true);
+          // GOOD -> return (includes(content.tags, 'Fate/GrandOrder') === true);
+          // BAD -> return (includes(content.tags, '漫画') === true);
           return (content.tags.includes('漫画') === false);
         });
       }
@@ -111,22 +118,17 @@ document.addEventListener('DOMContentLoaded', event => {
               {value: 'ugoira'},
               {value: 'manga'},
           ],
-          with_manga_tag: (window.localStorage && window.localStorage.getItem('with_manga_tag')) ? window.localStorage.getItem('with_manga_tag') : false,
-          with_big_height: (window.localStorage && window.localStorage.getItem('with_big_height')) ? window.localStorage.getItem('with_big_height') : false,
+          with_manga_tag: getBooleanFromLocalStorage('contents_with_manga_tag'),
+          with_big_height: getBooleanFromLocalStorage('with_big_height'),
       },
       watch: {
           with_manga_tag: function (newChecked){
-               if (window.localStorage) {
-                   window.localStorage.setItem('with_manga_tag', newChecked);
-               }
+              setBooleanToLocalStorage('contents_with_manga_tag', newChecked);
                resetGallery();
-               console.log(`manga: ${this.with_manga_tag}`);
                init(this.selected, this.with_manga_tag, this.with_big_height);
           },
           with_big_height: function (newChecked){
-               if (window.localStorage) {
-                   window.localStorage.setItem('with_big_height', newChecked);
-               }
+              setBooleanToLocalStorage('with_big_height', newChecked);
                resetGallery();
                init(this.selected, this.with_manga_tag, this.with_big_height);
           },
