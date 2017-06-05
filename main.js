@@ -12,18 +12,20 @@ document.addEventListener('DOMContentLoaded', event => {
     const items = [];
     let illustrations = [];
 
+    values = values.filter(response => {
+        return response.status === 200;
+    });
+
     values.forEach(response => {
-      if (response.status === 200) {
-        // Extracting illustration info
-        response.data.contents.forEach(content => {
-            illustrations.push({
-              'illustrationId': content.illust_id,
-              'illustrationUrl': content.url,
-              'illustrationTitle': content.title,
-              'userName': content.user_name,
-            });
-        });
-      }
+      // Extracting illustration info
+      response.data.contents.forEach(content => {
+          illustrations.push({
+            'illustrationId': content.illust_id,
+            'illustrationUrl': content.url,
+            'illustrationTitle': content.title,
+            'userName': content.user_name,
+          });
+      });
     });
 
     // Shuffle.
