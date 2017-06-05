@@ -22,6 +22,10 @@ function init(content, _with_manga_tag, _with_big_height) {
   let SOURCE_URI = `https://www.pixiv.net/ranking.php?mode=daily&format=json&content=${content}`;
   const promiseList = [];
 
+  if (content === "original") {
+    SOURCE_URI = `https://www.pixiv.net/ranking.php?format=json&mode=original`;
+  }
+
   for (let i = 1; i <= 3; i++) {
     // cannnot fetch ugoira ranking over page 3.
     if (content === "ugoira" && i > 2) {
@@ -115,8 +119,9 @@ document.addEventListener('DOMContentLoaded', event => {
           selected: (window.localStorage && window.localStorage.getItem('content')) ? window.localStorage.getItem('content') : 'illust',
           options: [
               {value: 'illust'},
-              {value: 'ugoira'},
+              {value: 'original'},
               {value: 'manga'},
+              {value: 'ugoira'},
           ],
           with_manga_tag: getBooleanFromLocalStorage('contents_with_manga_tag'),
           with_big_height: getBooleanFromLocalStorage('with_big_height'),
