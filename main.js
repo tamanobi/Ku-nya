@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', event => {
 function createIllustrationElement(imageUrl, title, author) {
   const img = new Image();
   img.src = imageUrl;
-  img.alt = author + ' / ' + title;
+  img.alt = `${author} / ${title}`;
   return img;
 }
 
