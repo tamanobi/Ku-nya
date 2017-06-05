@@ -1,5 +1,6 @@
 'use restrict';
-document.addEventListener('DOMContentLoaded', event => {
+
+function init() {
   const SOURCE_URI = 'https://www.pixiv.net/ranking.php?mode=daily&format=json&content=illust';
   const promiseList = [];
 
@@ -59,6 +60,10 @@ document.addEventListener('DOMContentLoaded', event => {
   }).catch(response => {
     console.log(response);
   });
+}
+
+document.addEventListener('DOMContentLoaded', event => {
+  init();
 });
 
 function createIllustrationElement(imageUrl, title, author) {
