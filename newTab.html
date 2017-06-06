@@ -5,21 +5,8 @@
         <script src="vendor/vuejs/vue/vue.min.js"></script>
     </head>
     <body>
-      <div id="setting">
-        <label for="content-selector">Ranking mode:</label>
-        <select id="content-selector" v-model="selected">
-          <option v-for="option in options" v-bind:value="option.value">
-            {{ option.value }}
-          </option>
-        </select>
-
-        <input type="checkbox" id="check_with_manga_tag" v-model="with_manga_tag">
-        <label for="check_with_manga_tag">display manga tag contents: {{ with_manga_tag }}</label>
-
-        <input type="checkbox" id="check_with_big_height" v-model="with_big_height">
-        <label for="check_with_big_height">display big height contents: {{ with_big_height }}</label>
-      </div>
       <div id="gallery"></div>
+      <script src="common.js" charset="utf-8"></script>
       <script src="main.js" charset="utf-8"></script>
     </body>
 </html>
