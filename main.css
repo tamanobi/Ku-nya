@@ -27,13 +27,9 @@
 }
 
 #gallery a img.loaded {
-  opacity: 0.7;
+  opacity: 1;
   background-color: #eee;
   display: inline-block;
   margin: 0 0 1em;
   width: 100%;
-}
-
-#gallery a img:hover {
-  opacity: 1;
 }
