@@ -1,22 +1,30 @@
 <html>
-<head>
-<script src="vendor/vuejs/vue/vue.min.js"></script>
-</head>
-<body>
-<div id="setting">
-<label for="content-selector">Ranking mode:</label>
-<select id="content-selector" v-model="selected">
-<option v-for="option in options" v-bind:value="option.value">
-{{ option.value }}
-</option>
-</select>
+  <head>
+    <link rel="stylesheet" href="popup.css">
+    <script src="vendor/vuejs/vue/vue.min.js"></script>
+  </head>
+  <body>
+    <div id="setting">
+      <section>
+        <label for="content-selector">Ranking mode:</label>
+        <select id="content-selector" v-model="selected">
+          <option v-for="option in options" v-bind:value="option.value">
+            {{ option.value }}
+          </option>
+        </select>
+      </section>
 
-<input type="checkbox" id="check_with_manga_tag" v-model="with_manga_tag">
-<label for="check_with_manga_tag">display manga tag contents: {{ with_manga_tag }}</label>
+      <section>
+        <input type="checkbox" id="check_with_manga_tag" v-model="with_manga_tag">
+        <label for="check_with_manga_tag">display manga tag contents: {{ with_manga_tag }}</label>
+      </section>
 
-<input type="checkbox" id="check_with_big_height" v-model="with_big_height">
-<label for="check_with_big_height">display big height contents: {{ with_big_height }}</label>
-<script src="popup.js"></script>
-</div>
-</body>
+      <section>
+        <input type="checkbox" id="checkbox_for_excluding_high_aspect_ratio" v-model="is_excluding_high_aspect_ratio">
+        <label for="checkbox_for_excluding_high_aspect_ratio">Excluding images with over <input type="number" name="input_for_smallest_includable_aspect_ratio" v-model="smallest_includable_aspect_ratio" :disabled="!is_excluding_high_aspect_ratio ? true : false" /> times aspect ratio(The narrow side as 1.0).</label>
+      </section>
+    </div>
+    <script src="common.js" charset="utf-8"></script>
+    <script src="popup.js"></script>
+  </body>
 </html>
