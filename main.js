@@ -131,7 +131,7 @@ function createGalleryItem(illustrationId, imageUrl, title, tags, author) {
     img.setAttribute('alt', tags.join(' '));
     const anchor = document.createElement('a');
     anchor.setAttribute('href', linkUrl);
-    anchor.setAttribute('target', 'pixiv');
+    anchor.setAttribute('target', '_blank');
     anchor.appendChild(img);
     return {anchor, img};
 }
