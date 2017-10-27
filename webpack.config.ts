@@ -1,5 +1,6 @@
 import { Configuration } from 'webpack'
 import { join } from 'path'
+import * as UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 
 module.exports = {
     context: join(__dirname, 'src'),
@@ -19,5 +20,8 @@ module.exports = {
         rules: [
             { loader: 'ts-loader', test: /\.ts$/ }
         ]
-    }
+    },
+    plugins: [
+        new UglifyJSPlugin()
+    ]
 } as Configuration
