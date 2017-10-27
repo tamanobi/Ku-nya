@@ -1,22 +1,10 @@
-'use restrict';
+'use strict';
 
-function setBooleanToLocalStorage(key, val) {
-  if (!window.localStorage) return false;
-  window.localStorage.setItem(key, ((val !== false)? '1': '0'));
-}
+import Vue from 'vue'
+import { getBooleanFromLocalStorage, getJsonFromLocalStorage, getNumberFromLocalStorage, setBooleanToLocalStorage, setValueToLocalStorage, setJsonToLocalStorage } from './lib/common'
 
-function setValueToLocalStorage(key, val) {
-  if (!window.localStorage) return false;
-  window.localStorage.setItem(key, String(val));
-}
-
-function setJsonToLocalStorage(key, obj) {
-  if (!window.localStorage) return false;
-  window.localStorage.setItem(key, JSON.stringify(obj));
-}
-
-document.addEventListener('DOMContentLoaded', event => {
-  var v = new Vue({
+document.addEventListener('DOMContentLoaded', () => {
+  new Vue({
       el: '#setting',
       data: {
           selected: (window.localStorage && window.localStorage.getItem('content')) ? window.localStorage.getItem('content') : 'illust',

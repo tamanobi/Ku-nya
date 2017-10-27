@@ -5,7 +5,8 @@
         "lib": [
             "dom",
             "dom.iterable",
-            "es2015"
+            "es2015",
+            "es2016"
         ]
     }
 }
