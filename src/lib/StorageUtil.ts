@@ -1,5 +1,3 @@
-'use restrict';
-
 export function getBoolean(key: string): boolean {
   if (!window.localStorage) return false;
   return (window.localStorage.getItem(key) === '0') ? false : true;
