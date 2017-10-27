@@ -2,6 +2,7 @@ import * as StorageUtil from './lib/StorageUtil'
 import { getOriginalRanking, getRanking, IllustEntry } from './lib/api'
 
 type ElementSet = { anchor: HTMLAnchorElement, img: HTMLImageElement }
+type ExcludeTagEntry = { name: string }
 
 function shuffle<T>(array: T[]): T[] {
   let n = array.length
@@ -16,7 +17,7 @@ function shuffle<T>(array: T[]): T[] {
   return array
 }
 
-async function init(content, excludingTags: string[], isExcludingHighAspectRatio: boolean, smallestIncludableAspectRatio: boolean) {
+async function init(content, excludingTags: ExcludeTagEntry[], isExcludingHighAspectRatio: boolean, smallestIncludableAspectRatio: boolean) {
   excludingTags = excludingTags || []
   isExcludingHighAspectRatio = isExcludingHighAspectRatio != null ? isExcludingHighAspectRatio : false
   let smallest_includable_aspect_ratio = smallestIncludableAspectRatio != null ? smallestIncludableAspectRatio : 3
@@ -34,7 +35,7 @@ async function init(content, excludingTags: string[], isExcludingHighAspectRatio
   const elements: ElementSet[] = await shuffle(illusts)
     .filter(illust => {
       // reject if excluding tag contained
-      return !illust.tags.some(tag => excludingTags.includes(tag))
+      return !illust.tags.some(tag => excludingTags.some(({ name }) => name === tag))
     })
     .filter(illust => {
       return illust.height / illust.width <= smallest_includable_aspect_ratio
