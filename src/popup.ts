@@ -1,6 +1,4 @@
-'use strict';
-
-import Vue from 'vue'
+import Vue from 'vue/dist/vue.esm'
 import * as StorageUtil from './lib/StorageUtil'
 
 document.addEventListener('DOMContentLoaded', () => {

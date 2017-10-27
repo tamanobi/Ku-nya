@@ -1,5 +1,3 @@
-'use strict';
-
 import * as StorageUtil from './lib/StorageUtil'
 import { getOriginalRanking, getRanking, IllustEntry } from './lib/api'
 
