@@ -1,6 +1,6 @@
 'use strict';
 
-import { getBooleanFromLocalStorage, getJsonFromLocalStorage, getNumberFromLocalStorage } from './lib/common'
+import * as StorageUtil from './lib/StorageUtil'
 import { getOriginalRanking, getRanking, IllustEntry } from './lib/api'
 
 type ElementSet = { anchor: HTMLAnchorElement, img: HTMLImageElement }
@@ -62,15 +62,15 @@ async function init(content, excludingTags: string[], isExcludingHighAspectRatio
 document.addEventListener('DOMContentLoaded', event => {
   const options = {
     selected: (window.localStorage && window.localStorage.getItem('content')) ? window.localStorage.getItem('content') : 'illust',
-    excluding_tags: getJsonFromLocalStorage('excluding_tags', []),
-    is_excluding_high_aspect_ratio: getBooleanFromLocalStorage('is_excluding_high_aspect_ratio'),
-    smallest_includable_aspect_ratio: getNumberFromLocalStorage('smallest_includable_aspect_ratio', 3),
+    excludingTags: StorageUtil.getJSON('excluding_tags', []),
+    isExcludingHighAspectRatio: StorageUtil.getBoolean('is_excluding_high_aspect_ratio'),
+    smallestIncludableAspectRatio: StorageUtil.getValue('smallest_includable_aspect_ratio', 3),
   }
 
   init(
     options.selected,
-    options.excluding_tags,
-    options.is_excluding_high_aspect_ratio,
-    options.smallest_includable_aspect_ratio
+    options.excludingTags,
+    options.isExcludingHighAspectRatio,
+    options.smallestIncludableAspectRatio
   )
 })

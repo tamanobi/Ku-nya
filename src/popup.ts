@@ -1,7 +1,7 @@
 'use strict';
 
 import Vue from 'vue'
-import { getBooleanFromLocalStorage, getJsonFromLocalStorage, getNumberFromLocalStorage, setBooleanToLocalStorage, setValueToLocalStorage, setJsonToLocalStorage } from './lib/common'
+import * as StorageUtil from './lib/StorageUtil'
 
 document.addEventListener('DOMContentLoaded', () => {
   new Vue({
@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
               {value: 'ugoira'},
           ],
           excluding_tag: '',
-          excluding_tags: getJsonFromLocalStorage('excluding_tags', []),
-          is_excluding_high_aspect_ratio: getBooleanFromLocalStorage('is_excluding_high_aspect_ratio'),
-          smallest_includable_aspect_ratio: getNumberFromLocalStorage('smallest_includable_aspect_ratio', 3),
+          excluding_tags: StorageUtil.getJSON('excluding_tags', []),
+          is_excluding_high_aspect_ratio: StorageUtil.getBoolean('is_excluding_high_aspect_ratio'),
+          smallest_includable_aspect_ratio: StorageUtil.getValue('smallest_includable_aspect_ratio', 3),
       },
       methods: {
           addTag: function (e) {
@@ -51,10 +51,10 @@ true
       },
       watch: {
           excluding_tags: function () {
-              setJsonToLocalStorage('excluding_tags', this.excluding_tags);
+              StorageUtil.setJSON('excluding_tags', this.excluding_tags);
           },
           with_manga_tag: function (newChecked) {
-              setBooleanToLocalStorage('contents_with_manga_tag', newChecked);
+              StorageUtil.setBoolean('contents_with_manga_tag', newChecked);
           },
           selected: function (newSelected) {
                if (window.localStorage) {
@@ -62,10 +62,10 @@ true
                }
           },
           is_excluding_high_aspect_ratio: function (newChecked) {
-              setBooleanToLocalStorage('is_excluding_high_aspect_ratio', newChecked);
+              StorageUtil.setBoolean('is_excluding_high_aspect_ratio', newChecked);
           },
           smallest_includable_aspect_ratio: function (newValue) {
-              setValueToLocalStorage('smallest_includable_aspect_ratio', newValue);
+              StorageUtil.setValue('smallest_includable_aspect_ratio', newValue);
           }
       }
   });
