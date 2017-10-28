@@ -20,7 +20,7 @@ function shuffle<T>(array: T[]): T[] {
 async function init(content, excludingTags: ExcludeTagEntry[], isExcludingHighAspectRatio: boolean, smallestIncludableAspectRatio: number) {
   excludingTags = excludingTags || []
   isExcludingHighAspectRatio = isExcludingHighAspectRatio != null ? isExcludingHighAspectRatio : false
-  let smallest_includable_aspect_ratio = smallestIncludableAspectRatio != null ? smallestIncludableAspectRatio : 3
+  smallestIncludableAspectRatio = smallestIncludableAspectRatio != null ? smallestIncludableAspectRatio : 3
 
   let illusts: IllustEntry[]
 
@@ -38,7 +38,7 @@ async function init(content, excludingTags: ExcludeTagEntry[], isExcludingHighAs
       return !illust.tags.some(tag => excludingTags.some(({ name }) => name === tag))
     })
     .filter(illust => {
-      return illust.height / illust.width <= smallest_includable_aspect_ratio
+      return illust.height / illust.width <= smallestIncludableAspectRatio
     })
     .map(illust => new Promise<ElementSet>((resolve) => {
       const anchor = document.createElement('a')
