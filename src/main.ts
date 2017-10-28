@@ -17,7 +17,7 @@ function shuffle<T>(array: T[]): T[] {
   return array
 }
 
-async function init(content, excludingTags: ExcludeTagEntry[], isExcludingHighAspectRatio: boolean, smallestIncludableAspectRatio: boolean) {
+async function init(content, excludingTags: ExcludeTagEntry[], isExcludingHighAspectRatio: boolean, smallestIncludableAspectRatio: number) {
   excludingTags = excludingTags || []
   isExcludingHighAspectRatio = isExcludingHighAspectRatio != null ? isExcludingHighAspectRatio : false
   let smallest_includable_aspect_ratio = smallestIncludableAspectRatio != null ? smallestIncludableAspectRatio : 3
