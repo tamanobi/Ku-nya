@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "dev": "webpack --watch"
+    "dev": "webpack --watch",
+    "build": "webpack"
   },
   "dependencies": {
     "axios": "0.17.0",
