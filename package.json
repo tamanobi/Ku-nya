@@ -1,0 +1,20 @@
+{
+  "scripts": {
+    "dev": "webpack --watch"
+  },
+  "dependencies": {
+    "axios": "0.17.0",
+    "vue": "2.5.2",
+    "webpack": "^3.8.1"
+  },
+  "devDependencies": {
+    "@types/axios": "0.14.0",
+    "@types/cheerio": "0.22.3",
+    "@types/vue": "2.0.0",
+    "@types/webpack": "3.0.14",
+    "ts-loader": "3.1.0",
+    "ts-node": "3.3.0",
+    "typescript": "2.5.3",
+    "uglifyjs-webpack-plugin": "1.0.1"
+  }
+}

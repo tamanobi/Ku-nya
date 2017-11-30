@@ -1,22 +1,8 @@
-'use restrict';
+import Vue from 'vue/dist/vue.esm'
+import * as StorageUtil from './lib/StorageUtil'
 
-function setBooleanToLocalStorage(key, val) {
-  if (!window.localStorage) return false;
-  window.localStorage.setItem(key, ((val !== false)? '1': '0'));
-}
-
-function setValueToLocalStorage(key, val) {
-  if (!window.localStorage) return false;
-  window.localStorage.setItem(key, String(val));
-}
-
-function setJsonToLocalStorage(key, obj) {
-  if (!window.localStorage) return false;
-  window.localStorage.setItem(key, JSON.stringify(obj));
-}
-
-document.addEventListener('DOMContentLoaded', event => {
-  var v = new Vue({
+document.addEventListener('DOMContentLoaded', () => {
+  new Vue({
       el: '#setting',
       data: {
           selected: (window.localStorage && window.localStorage.getItem('content')) ? window.localStorage.getItem('content') : 'illust',
@@ -27,9 +13,9 @@ document.addEventListener('DOMContentLoaded', event => {
               {value: 'ugoira'},
           ],
           excluding_tag: '',
-          excluding_tags: getJsonFromLocalStorage('excluding_tags', []),
-          is_excluding_high_aspect_ratio: getBooleanFromLocalStorage('is_excluding_high_aspect_ratio'),
-          smallest_includable_aspect_ratio: getNumberFromLocalStorage('smallest_includable_aspect_ratio', 3),
+          excluding_tags: StorageUtil.getJSON('excluding_tags', []),
+          is_excluding_high_aspect_ratio: StorageUtil.getBoolean('is_excluding_high_aspect_ratio'),
+          smallest_includable_aspect_ratio: StorageUtil.getValue('smallest_includable_aspect_ratio', 3),
       },
       methods: {
           addTag: function (e) {
@@ -63,10 +49,10 @@ true
       },
       watch: {
           excluding_tags: function () {
-              setJsonToLocalStorage('excluding_tags', this.excluding_tags);
+              StorageUtil.setJSON('excluding_tags', this.excluding_tags);
           },
           with_manga_tag: function (newChecked) {
-              setBooleanToLocalStorage('contents_with_manga_tag', newChecked);
+              StorageUtil.setBoolean('contents_with_manga_tag', newChecked);
           },
           selected: function (newSelected) {
                if (window.localStorage) {
@@ -74,10 +60,10 @@ true
                }
           },
           is_excluding_high_aspect_ratio: function (newChecked) {
-              setBooleanToLocalStorage('is_excluding_high_aspect_ratio', newChecked);
+              StorageUtil.setBoolean('is_excluding_high_aspect_ratio', newChecked);
           },
           smallest_includable_aspect_ratio: function (newValue) {
-              setValueToLocalStorage('smallest_includable_aspect_ratio', newValue);
+              StorageUtil.setValue('smallest_includable_aspect_ratio', newValue);
           }
       }
   });
