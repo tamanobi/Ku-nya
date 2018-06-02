@@ -14,8 +14,6 @@ interface Props {
 }
 
 export default class SettingPanel extends Component<Props> {
-  handleAspectRatioSettingsChange = () => {}
-
   render() {
     const {
       mode,
