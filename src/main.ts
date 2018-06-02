@@ -1,21 +1,9 @@
 import * as StorageUtil from './lib/StorageUtil'
+import { shuffle } from './lib/util'
 import { getOriginalRanking, getRanking, IllustEntry } from './lib/api'
 
 type ElementSet = { anchor: HTMLAnchorElement; img: HTMLImageElement }
 type ExcludeTagEntry = { name: string }
-
-function shuffle<T>(array: T[]): T[] {
-  let n = array.length
-
-  while (n) {
-    const i = Math.floor(Math.random() * n--)
-    const t = array[n]
-    array[n] = array[i]
-    array[i] = t
-  }
-
-  return array
-}
 
 async function init(
   content,
