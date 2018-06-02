@@ -1,23 +1,8 @@
 import { h, Component } from 'preact'
 import Illust from './Illust'
 import { IllustEntry, getOriginalRanking, getRanking } from '../lib/api'
+import { Options, Selectables } from '../lib/options'
 import { shuffle } from '../lib/util'
-
-type ExcludeTagEntry = { name: string }
-
-export enum Selectables {
-  Original = 'original',
-  Illust = 'illust',
-  Manga = 'manga',
-  Ugoira = 'ugoira',
-}
-
-export interface Options {
-  selected: Selectables
-  excludingTags: ExcludeTagEntry[]
-  isExcludingHighAspectRatio: boolean
-  smallestIncludableAspectRatio: number
-}
 
 interface Props {
   options: Options
@@ -46,9 +31,7 @@ export default class App extends Component<Props, State> {
     const illusts = await shuffle(allIllusts)
       .filter(illust => {
         // reject if contains tags to be excluded
-        return !illust.tags.some(tag =>
-          options.excludingTags.some(({ name }) => name === tag),
-        )
+        return !illust.tags.some(tag => options.excludingTags.includes(tag))
       })
       .filter(illust => {
         return (
