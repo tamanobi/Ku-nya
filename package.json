@@ -6,12 +6,10 @@
   },
   "dependencies": {
     "axios": "0.18.0",
-    "preact": "^8.2.9",
-    "vue": "2.5.16"
+    "preact": "^8.2.9"
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
-    "@types/vue": "2.0.0",
     "@types/webpack": "4.4.0",
     "prettier": "^1.13.4",
     "ts-loader": "4.3.0",
