@@ -27,12 +27,9 @@ class Illust extends Component<{
   render() {
     const { illust, isReady, onload } = this.props
     return (
-      <a
-        className={isReady && 'loaded'}
-        target="_blank"
-        href={`https://www.pixiv.net/i/${illust.id}`}
-      >
+      <a target="_blank" href={`https://www.pixiv.net/i/${illust.id}`}>
         <img
+          className={isReady && 'loaded'}
           alt={`${illust.authorName} / ${illust.title}`}
           src={illust.imageUrl}
           ref={(img: HTMLImageElement) => {
