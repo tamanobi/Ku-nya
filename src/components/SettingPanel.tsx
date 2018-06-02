@@ -18,7 +18,7 @@ export default class SettingPanel extends Component<Props> {
 
   render() {
     const {
-      selected,
+      mode,
       isExcludingHighAspectRatio,
       smallestIncludableAspectRatio,
       excludingTags,
@@ -26,7 +26,7 @@ export default class SettingPanel extends Component<Props> {
 
     return (
       <div>
-        <ModeSettingsSection initialValue={selected} update={setMode} />
+        <ModeSettingsSection initialValue={mode} update={setMode} />
         <AspectRatioSettingSection
           initial_is_excluding_high_aspect_ratio={isExcludingHighAspectRatio}
           initial_smallest_includable_aspect_ratio={

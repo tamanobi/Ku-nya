@@ -1,6 +1,6 @@
 import * as storageUtil from '../lib/StorageUtil'
 
-export enum Selectables {
+export enum Modes {
   Original = 'original',
   Illust = 'illust',
   Manga = 'manga',
@@ -8,14 +8,14 @@ export enum Selectables {
 }
 
 export interface Options {
-  selected: Selectables
+  mode: Modes
   excludingTags: string[]
   isExcludingHighAspectRatio: boolean
   smallestIncludableAspectRatio: number
 }
 
 export const getOptions = (): Options => ({
-  selected: storageUtil.getValue('content', Selectables.Illust),
+  mode: storageUtil.getValue('content', Modes.Illust),
   excludingTags: storageUtil.getJSON('excluding_tags', []),
   isExcludingHighAspectRatio: storageUtil.getBoolean(
     'is_excluding_high_aspect_ratio',
@@ -27,8 +27,7 @@ export const getOptions = (): Options => ({
   ),
 })
 
-export const setMode = (mode: Selectables) =>
-  storageUtil.setValue('content', mode)
+export const setMode = (mode: Modes) => storageUtil.setValue('content', mode)
 
 export const setAspectRatioSettings = (isChecked: boolean, value: number) => {
   storageUtil.setBoolean('is_excluding_high_aspect_ratio', isChecked)

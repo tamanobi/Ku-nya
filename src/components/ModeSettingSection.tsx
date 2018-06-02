@@ -1,22 +1,22 @@
 import { h, Component } from 'preact'
 import SettingSection from './SettingSection'
-import { Selectables } from '../lib/options'
+import { Modes } from '../lib/options'
 
 interface Props {
-  initialValue: Selectables
-  update(mode: Selectables)
+  initialValue: Modes
+  update(mode: Modes)
 }
 
 interface State {
-  value: Selectables
+  value: Modes
 }
 
 export default class ModeSettingSection extends Component<Props, State> {
-  private selectableOptions: Array<Selectables> = [
-    Selectables.Illust,
-    Selectables.Manga,
-    Selectables.Original,
-    Selectables.Ugoira,
+  private selectableOptions: Array<Modes> = [
+    Modes.Illust,
+    Modes.Manga,
+    Modes.Original,
+    Modes.Ugoira,
   ]
 
   constructor(props: Props) {
@@ -28,7 +28,7 @@ export default class ModeSettingSection extends Component<Props, State> {
 
   handleModeChange = (ev: Event) => {
     const { update } = this.props
-    const value = (ev.target as HTMLSelectElement).value as Selectables
+    const value = (ev.target as HTMLSelectElement).value as Modes
     this.setState({ value })
     update(value)
   }
