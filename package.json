@@ -1,11 +1,11 @@
 {
   "scripts": {
-    "dev": "webpack --watch"
+    "dev": "webpack --watch",
+    "update": "upgrade-interactive --latest"
   },
   "dependencies": {
     "axios": "0.17.0",
-    "vue": "2.5.2",
-    "webpack": "^3.8.1"
+    "vue": "2.5.2"
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
@@ -15,6 +15,7 @@
     "ts-loader": "3.1.0",
     "ts-node": "3.3.0",
     "typescript": "2.5.3",
-    "uglifyjs-webpack-plugin": "1.0.1"
+    "uglifyjs-webpack-plugin": "1.0.1",
+    "webpack": "^3.8.1"
   }
 }
