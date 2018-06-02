@@ -3,31 +3,7 @@
     <link rel="stylesheet" href="popup.css">
   </head>
   <body>
-    <div id="setting">
-      <section>
-        <h1>Ranking Mode</h1>
-        <label for="content-selector">Ranking mode:</label>
-        <select id="content-selector" v-model="selected">
-          <option v-for="option in options" :value="option.value">
-            {{ option.value }}
-          </option>
-        </select>
-      </section>
-
-      <section>
-        <h1>Mute Setting(Aspect Ratio)</h1>
-        <input type="checkbox" id="checkbox_for_excluding_high_aspect_ratio" v-model="is_excluding_high_aspect_ratio">
-        <label for="checkbox_for_excluding_high_aspect_ratio">Excluding images with over <input type="number" style="width: 3em;" name="input_for_smallest_includable_aspect_ratio" v-model="smallest_includable_aspect_ratio" :disabled="!is_excluding_high_aspect_ratio ? true : false" /> times aspect ratio(The narrow side as 1.0).</label>
-      </section>
-
-      <section>
-        <h1>Mute Setting(Tag)</h1>
-        <label>Excluding tag<input type="text" name="input_for_adding_excluding_tag" v-model="excluding_tag" placeholder="Fate/Grand_Order" /></label><button v-on:click="addTag">Add</button>
-        <ul>
-            <li class="tag" v-for="tag in excluding_tags">{{ tag.name }}<button :value="tag.name" v-on:click="deleteTag">x</button></li>
-        </ul>
-      </section>
-    </div>
+    <div id="setting"></div>
     <script src="dist/popup.js"></script>
   </body>
 </html>
