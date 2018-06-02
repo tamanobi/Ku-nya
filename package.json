@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "axios": "0.18.0",
+    "preact": "^8.2.9",
     "vue": "2.5.16"
   },
   "devDependencies": {
