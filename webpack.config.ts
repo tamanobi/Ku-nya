@@ -13,13 +13,13 @@ export default (env, argv) =>
       filename: '[name].js',
     },
     resolve: {
-      extensions: ['.js', '.ts'],
+      extensions: ['.js', '.ts', '.tsx'],
       modules: ['node_modules'],
     },
     module: {
       rules: [
         {
-          test: /\.ts$/,
+          test: /\.tsx?$/,
           use: [{ loader: 'ts-loader' }],
         },
       ],
