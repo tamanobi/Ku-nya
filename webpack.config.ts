@@ -1,31 +1,30 @@
 import webpack = require('webpack')
 import path = require('path')
 
-export default (env, argv) => ({
+export default (env, argv) =>
+  ({
     context: path.join(__dirname, 'src'),
     entry: {
-        main: './main.ts',
-        popup: './popup.ts'
+      main: './main.ts',
+      popup: './popup.ts',
     },
     output: {
-        path: path.join(__dirname, 'release/dist'),
-        filename: '[name].js',
+      path: path.join(__dirname, 'release/dist'),
+      filename: '[name].js',
     },
     resolve: {
-        extensions: ['.js', '.ts'],
-        modules: ['node_modules']
+      extensions: ['.js', '.ts'],
+      modules: ['node_modules'],
     },
     module: {
-        rules: [
-            {
-                test: /\.ts$/,
-                use: [
-                    {loader: 'ts-loader'}
-                ]
-            }
-        ]
+      rules: [
+        {
+          test: /\.ts$/,
+          use: [{ loader: 'ts-loader' }],
+        },
+      ],
     },
     optimization: {
-        minimize: argv.mode === 'production',
-    }
-} as webpack.Configuration)
+      minimize: argv.mode === 'production',
+    },
+  } as webpack.Configuration)
