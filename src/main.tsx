@@ -1,75 +1,130 @@
+import { h, render, Component } from 'preact'
 import * as StorageUtil from './lib/StorageUtil'
 import { shuffle } from './lib/util'
 import { getOriginalRanking, getRanking, IllustEntry } from './lib/api'
 
-type ElementSet = { anchor: HTMLAnchorElement; img: HTMLImageElement }
 type ExcludeTagEntry = { name: string }
 
-async function init(
-  content,
-  excludingTags: ExcludeTagEntry[],
-  isExcludingHighAspectRatio: boolean,
-  smallestIncludableAspectRatio: number,
-) {
-  excludingTags = excludingTags || []
-  isExcludingHighAspectRatio =
-    isExcludingHighAspectRatio != null ? isExcludingHighAspectRatio : false
-  smallestIncludableAspectRatio =
-    smallestIncludableAspectRatio != null ? smallestIncludableAspectRatio : 3
-
-  let illusts: IllustEntry[]
-
-  if (content === 'original') {
-    illusts = await getOriginalRanking()
-  } else {
-    illusts = await getRanking(content)
-  }
-
-  const gallery = document.querySelector('#gallery')!
-
-  const elements: ElementSet[] = await shuffle(illusts)
-    .filter(illust => {
-      // reject if excluding tag contained
-      return !illust.tags.some(tag =>
-        excludingTags.some(({ name }) => name === tag),
-      )
-    })
-    .filter(illust => {
-      return illust.height / illust.width <= smallestIncludableAspectRatio
-    })
-    .map(
-      illust =>
-        new Promise<ElementSet>(resolve => {
-          const anchor = document.createElement('a')
-          anchor.setAttribute('href', `https://www.pixiv.net/i/${illust.id}`)
-          anchor.setAttribute('target', '_blank')
-
-          const img = new Image()
-          img.src = illust.imageUrl
-          img.alt = `${illust.authorName} / ${illust.title}`
-          img.onload = img.onerror = () => resolve({ anchor, img })
-
-          anchor.appendChild(img)
-        }),
-    )
-    .reduce(
-      (m, el, index, list) =>
-        index === list.length - 1 ? Promise.all(list) : m,
-      [],
-    ) // Reduce to Promise.all
-
-  elements.forEach(elements => gallery.appendChild(elements.anchor))
-  setTimeout(() => {
-    elements.forEach(element => element.img.classList.add('loaded'))
-  }, 125)
+enum Selectables {
+  Original = 'original',
+  Illust = 'illust',
+  Manga = 'manga',
+  Ugoira = 'ugoira',
 }
 
-document.addEventListener('DOMContentLoaded', event => {
-  const options = {
+interface Options {
+  selected: Selectables
+  excludingTags: ExcludeTagEntry[]
+  isExcludingHighAspectRatio: boolean
+  smallestIncludableAspectRatio: number
+}
+
+class Illust extends Component<{
+  illust: IllustEntry
+  isReady: boolean
+  onload(): void
+}> {
+  render() {
+    const { illust, isReady, onload } = this.props
+    return (
+      <a
+        className={isReady && 'loaded'}
+        target="_blank"
+        href={`https://www.pixiv.net/i/${illust.id}`}
+      >
+        <img
+          alt={`${illust.authorName} / ${illust.title}`}
+          src={illust.imageUrl}
+          ref={(img: HTMLImageElement) => {
+            img && (img.onload = img.onerror = onload)
+          }}
+        />
+      </a>
+    )
+  }
+}
+
+interface Props {
+  options: Options
+}
+
+interface State {
+  illusts: IllustEntry[]
+  isReady: boolean
+}
+
+class App extends Component<Props, State> {
+  private pendingCount: number
+
+  constructor(props: Props) {
+    super(props)
+    this.state = {
+      illusts: [],
+      isReady: false,
+    }
+  }
+
+  async componentDidMount() {
+    const { options } = this.props
+    const allIllusts = await this.loadContent(options)
+
+    const illusts = await shuffle(allIllusts)
+      .filter(illust => {
+        // reject if contains tags to be excluded
+        return !illust.tags.some(tag =>
+          options.excludingTags.some(({ name }) => name === tag),
+        )
+      })
+      .filter(illust => {
+        return (
+          illust.height / illust.width <= options.smallestIncludableAspectRatio
+        )
+      })
+
+    this.setState({ illusts })
+    this.pendingCount = illusts.length
+  }
+
+  loadContent(options: Options): Promise<IllustEntry[]> {
+    const { selected } = options
+
+    return selected === Selectables.Original
+      ? getOriginalRanking()
+      : getRanking(selected)
+  }
+
+  handleLoadOrError = () => {
+    if (--this.pendingCount <= 0) {
+      setTimeout(() => {
+        this.setState({ isReady: true })
+      }, 125)
+    }
+  }
+
+  render() {
+    const { illusts, isReady } = this.state
+    return (
+      <div>
+        {// TODO: Remove element when error occurred
+        illusts.map(illust => (
+          <Illust
+            key={illust.id}
+            isReady={isReady}
+            illust={illust}
+            onload={this.handleLoadOrError}
+          />
+        ))}
+      </div>
+    )
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async event => {
+  const options: Options = {
     selected:
       window.localStorage && window.localStorage.getItem('content')
-        ? window.localStorage.getItem('content')
-        : 'illust',
+        ? (window.localStorage.getItem('content') as Selectables)
+        : Selectables.Illust,
     excludingTags: StorageUtil.getJSON('excluding_tags', []),
     isExcludingHighAspectRatio: StorageUtil.getBoolean(
       'is_excluding_high_aspect_ratio',
@@ -80,10 +135,5 @@ document.addEventListener('DOMContentLoaded', event => {
     ),
   }
 
-  init(
-    options.selected,
-    options.excludingTags,
-    options.isExcludingHighAspectRatio,
-    options.smallestIncludableAspectRatio,
-  )
+  render(<App options={options} />, document.getElementById('gallery'))
 })
