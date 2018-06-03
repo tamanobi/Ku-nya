@@ -1,16 +1,18 @@
-export function getBoolean(key: string): boolean {
+export function getBoolean(key: string, _default?: boolean): boolean {
   if (!window.localStorage) return false
-  return window.localStorage.getItem(key) === '0' ? false : true
+  return window.localStorage.getItem(key) !== null
+    ? window.localStorage.getItem(key) !== '0'
+    : _default
 }
 
-export function getValue(key: string, _default: any): any {
+export function getValue(key: string, _default?: any): any {
   if (!window.localStorage) return _default
   return window.localStorage.getItem(key) !== null
     ? window.localStorage.getItem(key)
     : _default
 }
 
-export function getJSON(key: string, _default: any): any {
+export function getJSON(key: string, _default?: any): any {
   _default = _default || {}
   if (!window.localStorage) return _default
   return window.localStorage.getItem(key) !== null
