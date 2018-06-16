@@ -43,6 +43,6 @@
   margin: 0 0 1em;
 }
 
-#gallery a img:hover {
+#gallery a img.loaded:hover {
   opacity: 1;
 }
