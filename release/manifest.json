@@ -14,5 +14,10 @@
     "default_popup": "popup.html"
   },
   "background": {},
-  "permissions": ["webRequest", "webRequestBlocking", "https://www.pixiv.net/"]
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://www.pixiv.net/",
+    "https://i.pximg.net/"
+  ]
 }
