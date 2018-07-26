@@ -1,21 +1,22 @@
 {
   "scripts": {
-    "dev": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development --watch",
+    "update": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
-    "axios": "0.17.0",
-    "vue": "2.5.2",
-    "webpack": "^3.8.1"
+    "axios": "0.18.0",
+    "preact": "^8.2.9"
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
-    "@types/cheerio": "0.22.3",
-    "@types/vue": "2.0.0",
-    "@types/webpack": "3.0.14",
-    "ts-loader": "3.1.0",
-    "ts-node": "3.3.0",
-    "typescript": "2.5.3",
-    "uglifyjs-webpack-plugin": "1.0.1"
+    "@types/chrome": "^0.0.70",
+    "@types/webpack": "4.4.0",
+    "prettier": "^1.13.4",
+    "ts-loader": "4.3.0",
+    "ts-node": "6.0.5",
+    "typescript": "2.9.1",
+    "webpack": "^4.10.2",
+    "webpack-cli": "^3.0.0"
   }
 }

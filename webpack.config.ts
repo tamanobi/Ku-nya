@@ -1,27 +1,30 @@
-import { Configuration } from 'webpack'
-import { join } from 'path'
-import * as UglifyJSPlugin from 'uglifyjs-webpack-plugin'
+import webpack = require('webpack')
+import path = require('path')
 
-module.exports = {
-    context: join(__dirname, 'src'),
+export default (env, argv) =>
+  ({
+    context: path.join(__dirname, 'src'),
     entry: {
-        main: './main.ts',
-        popup: './popup.ts'
+      main: './main.tsx',
+      popup: './popup.tsx',
     },
     output: {
-        path: join(__dirname, 'release/dist'),
-        filename: '[name].js',
+      path: path.join(__dirname, 'release/dist'),
+      filename: '[name].js',
     },
     resolve: {
-        extensions: ['.js', '.ts'],
-        modules: ['node_modules']
+      extensions: ['.js', '.ts', '.tsx'],
+      modules: ['node_modules'],
     },
     module: {
-        rules: [
-            { loader: 'ts-loader', test: /\.ts$/ }
-        ]
+      rules: [
+        {
+          test: /\.tsx?$/,
+          use: [{ loader: 'ts-loader' }],
+        },
+      ],
     },
-    plugins: [
-        new UglifyJSPlugin()
-    ]
-} as Configuration
+    optimization: {
+      minimize: argv.mode === 'production',
+    },
+  } as webpack.Configuration)
