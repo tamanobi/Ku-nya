@@ -2,8 +2,10 @@
   "name": "Ku-nya",
   "version": "1.0.1",
   "manifest_version": 2,
-  "description": "Ku-nya picks up illustrations on the pixiv ranking randomly and displays them on your new tab. Enjoy your pixiv life!",
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "description":
+    "Ku-nya picks up illustrations on the pixiv ranking randomly and displays them on your new tab. Enjoy your pixiv life!",
+  "content_security_policy":
+    "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "icons": {},
   "chrome_url_overrides": {
     "newtab": "newTab.html"
@@ -11,5 +13,10 @@
   "browser_action": {
     "default_popup": "popup.html"
   },
-  "permissions": ["https://www.pixiv.net/"]
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "https://www.pixiv.net/",
+    "https://i.pximg.net/"
+  ]
 }

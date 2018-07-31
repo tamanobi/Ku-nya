@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.7.0
+    working_directory: ~/app
+    steps:
+      - checkout
+      - run: yarn install
+      - run: yarn build

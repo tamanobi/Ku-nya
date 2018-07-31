@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
+    "@types/chrome": "^0.0.70",
     "@types/webpack": "4.4.0",
     "prettier": "^1.13.4",
     "ts-loader": "4.3.0",
