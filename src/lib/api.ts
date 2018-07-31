@@ -10,6 +10,8 @@ export interface IllustEntry {
   authorName: string
 }
 
+const imageResolution = '480x960'
+
 export const getOriginalRanking = async (): Promise<IllustEntry[]> => {
   const URL = 'https://www.pixiv.net/ranking.php?format=json&mode=original'
   const responses = await Promise.all([
@@ -24,7 +26,7 @@ export const getOriginalRanking = async (): Promise<IllustEntry[]> => {
       res.data.contents.map(
         (content): IllustEntry => ({
           id: content.illust_id,
-          imageUrl: content.url,
+          imageUrl: content.url.replace(/c\/\d+x\d+\//, `c/${imageResolution}/`),
           title: content.title,
           tags: content.tags,
           width: content.width,
@@ -53,7 +55,7 @@ export const getRanking = async (
       res.data.contents.map(
         (content): IllustEntry => ({
           id: content.illust_id,
-          imageUrl: content.url,
+          imageUrl: content.url.replace(/c\/\d+x\d+\//, `c/${imageResolution}/`),
           title: content.title,
           tags: content.tags,
           width: content.width,
