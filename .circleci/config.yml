@@ -1,10 +1,51 @@
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build
+      - publish:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^v.*/
+
 version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:10.7.0
+      - image: cibuilds/chrome-extension:latest
     working_directory: ~/app
     steps:
       - checkout
-      - run: yarn install
-      - run: yarn build
+      - run:
+          name: "Install Dependencies"
+          command: |
+           apk update
+           apk add --no-cache yarn
+           apk add --no-cache zip
+      - run:
+          name: "Make Extension Production Ready"
+          command: |
+            yarn install && yarn build
+      - run:
+          name: "Package Extension"
+          command: zip /root/project/Ku-nya.zip release
+      - persist_to_workspace:
+          root: /root/project
+          paths:
+            - Ku-nya.zip
+  publish:
+    docker:
+      - image: cibuilds/chrome-extension:latest
+    steps:
+      - attach_workspace:
+          at: /root/project
+      - run:
+          name: "Setup Environment Variables"
+          command: |
+            echo "export APP_ID=${APP_ID}" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
+          name: "Publish to the Google Chrome Store"
+          command: publish /root/project/Ku-nya.zip
