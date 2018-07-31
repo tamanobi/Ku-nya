@@ -10,7 +10,7 @@ export interface IllustEntry {
   authorName: string
 }
 
-export const imageResolution = '480x960'
+const imageResolution = '480x960'
 
 export const getOriginalRanking = async (): Promise<IllustEntry[]> => {
   const URL = 'https://www.pixiv.net/ranking.php?format=json&mode=original'
