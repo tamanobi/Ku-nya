@@ -6,10 +6,12 @@
   },
   "dependencies": {
     "axios": "0.18.0",
+    "cheerio": "1.0.0-rc.2",
     "preact": "^8.2.9"
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
+    "@types/cheerio": "0.22.9",
     "@types/chrome": "^0.0.70",
     "@types/webpack": "4.4.0",
     "prettier": "^1.13.4",
