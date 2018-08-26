@@ -17,6 +17,7 @@ export default class ModeSettingSection extends Component<Props, State> {
     Modes.Manga,
     Modes.Original,
     Modes.Ugoira,
+    Modes.Newer,
   ]
 
   constructor(props: Props) {
