@@ -6,6 +6,7 @@ export enum Modes {
   Manga = 'manga',
   Ugoira = 'ugoira',
   Newer = 'newer',
+  Popular = 'popular',
 }
 
 export interface Options {
