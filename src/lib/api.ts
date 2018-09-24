@@ -61,13 +61,6 @@ export const getPopularIllusts = async (): Promise<IllustEntry[]> => {
     axios.get(`${URL}&p=4`),
   ])
 
-  console.log(
-    responses
-      .filter(res => res.status == 200)
-      .map(res =>
-        res.data.filter(content => typeof content.illust_id !== 'undefined'),
-      ),
-  )
   return responses
     .filter(res => res.status == 200)
     .map(res =>
