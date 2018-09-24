@@ -77,10 +77,9 @@ export const getPopularIllusts = async (): Promise<IllustEntry[]> => {
       res.map(
         (content): IllustEntry => ({
           id: content.illust_id,
-          imageUrl: content.url.replace(
-            /c\/\d+x\d+_\d+_\w+\//,
-            `c/${imageResolution}/`,
-          ),
+          imageUrl: content.url
+            .replace(/c\/\d+x\d+_\d+_\w+\//, `c/${imageResolution}/`)
+            .replace('_square', '_master'),
           title: content.title,
           tags: content.tags,
           width: content.illust_width,
