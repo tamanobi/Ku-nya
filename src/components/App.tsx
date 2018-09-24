@@ -1,6 +1,12 @@
 import { h, Component } from 'preact'
 import Illust from './Illust'
-import { IllustEntry, getOriginalRanking, getRanking, getNewIllusts } from '../lib/api'
+import {
+  IllustEntry,
+  getOriginalRanking,
+  getRanking,
+  getNewIllusts,
+  getPopularIllusts,
+} from '../lib/api'
 import { Options, Modes } from '../lib/options'
 import { shuffle } from '../lib/util'
 
@@ -46,9 +52,13 @@ export default class App extends Component<Props, State> {
   loadContent(options: Options): Promise<IllustEntry[]> {
     const { mode } = options
 
-    return mode === Modes.Original ? getOriginalRanking()
-      : mode === Modes.Newer ? getNewIllusts()
-      : getRanking(mode)
+    return mode === Modes.Original
+      ? getOriginalRanking()
+      : mode === Modes.Newer
+        ? getNewIllusts()
+        : mode === Modes.Popular
+          ? getPopularIllusts()
+          : getRanking(mode)
   }
 
   handleLoadOrError = () => {
