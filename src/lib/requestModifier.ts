@@ -25,5 +25,5 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
   {
     urls: [refererTarget],
   },
-  ['requestHeaders', 'blocking'],
+  ['requestHeaders', 'extraHeaders', 'blocking'],
 )
