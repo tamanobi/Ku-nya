@@ -1,6 +1,11 @@
 const refererValue = 'https://www.pixiv.net/'
 const refererTarget = 'https://i.pximg.net/*'
 
+let extraInfoSpec = ['requestHeaders', 'blocking']
+if (chrome.webRequest['OnBeforeSendHeadersOptions'].hasOwnProperty('EXTRA_HEADERS')) {
+  extraInfoSpec.push('extraHeaders')
+}
+
 /** Modifies request Referer HTTP header */
 chrome.webRequest.onBeforeSendHeaders.addListener(
   details => {
@@ -25,5 +30,5 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
   {
     urls: [refererTarget],
   },
-  ['requestHeaders', 'extraHeaders', 'blocking'],
+  extraInfoSpec
 )
