@@ -24,18 +24,18 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Install Dependencies"
+          name: 'Install Dependencies'
           command: |
-           apk update
-           apk add --no-cache yarn
-           apk add --no-cache zip
+            apk update
+            apk add --no-cache yarn
+            apk add --no-cache zip
       - run:
-          name: "Make Extension Production Ready"
+          name: 'Make Extension Production Ready'
           command: |
             yarn install && yarn build
       - run:
-          name: "Package Extension"
-          command: zip /root/project/Ku-nya.zip release
+          name: 'Package Extension'
+          command: zip -r /root/project/Ku-nya.zip release
       - persist_to_workspace:
           root: /root/project
           paths:
@@ -47,10 +47,10 @@ jobs:
       - attach_workspace:
           at: /root/project
       - run:
-          name: "Setup Environment Variables"
+          name: 'Setup Environment Variables'
           command: |
             echo "export APP_ID=${APP_ID}" >> $BASH_ENV
             source $BASH_ENV
       - run:
-          name: "Publish to the Google Chrome Store"
+          name: 'Publish to the Google Chrome Store'
           command: publish /root/project/Ku-nya.zip
