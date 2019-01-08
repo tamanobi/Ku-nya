@@ -10,6 +10,12 @@ import {
 import { Options, Modes } from '../lib/options'
 import { shuffle } from '../lib/util'
 
+import * as Sentry from '@sentry/browser'
+if (SENTRY_DSN) {
+  Sentry.init({
+    dsn: SENTRY_DSN,
+  })
+}
 interface Props {
   options: Options
 }
