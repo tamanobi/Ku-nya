@@ -27,4 +27,9 @@ export default (env, argv) =>
     optimization: {
       minimize: argv.mode === 'production',
     },
+    plugins: [
+      new webpack.DefinePlugin({
+        SENTRY_DSN: JSON.stringify(process.env.SENTRY_DSN || null),
+      }),
+    ],
   } as webpack.Configuration)

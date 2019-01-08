@@ -5,6 +5,7 @@
     "update": "yarn upgrade-interactive --latest"
   },
   "dependencies": {
+    "@sentry/browser": "4.4.2",
     "axios": "0.18.0",
     "cheerio": "1.0.0-rc.2",
     "preact": "^8.3.1"
