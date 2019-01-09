@@ -14,7 +14,8 @@ export interface IllustEntry {
 const imageResolution = '480x960'
 
 export const getNewIllusts = async (): Promise<IllustEntry[]> => {
-  const URL = 'https://www.pixiv.net/new_illust.php?type=all'
+  const URL =
+    'https://www.pixiv.net/touch/ajax_api/ajax_api.php?mode=new_illust'
   const responses = await Promise.all([
     axios.get(`${URL}&p=1`),
     axios.get(`${URL}&p=2`),
