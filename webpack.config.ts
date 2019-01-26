@@ -5,11 +5,12 @@ export default (env, argv) =>
   ({
     context: path.join(__dirname, 'src'),
     entry: {
-      main: './main.tsx',
-      popup: './popup.tsx',
+      "dist/main": './main.tsx',
+      "dist/popup": './popup.tsx',
+      "sw": './sw.js',
     },
     output: {
-      path: path.join(__dirname, 'release/dist'),
+      path: path.join(__dirname, 'release'),
       filename: '[name].js',
     },
     resolve: {

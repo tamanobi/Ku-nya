@@ -16,6 +16,7 @@ if (SENTRY_DSN) {
     dsn: SENTRY_DSN,
   })
 }
+
 interface Props {
   options: Options
 }
@@ -37,6 +38,18 @@ export default class App extends Component<Props, State> {
   }
 
   async componentDidMount() {
+    if ('serviceWorker' in navigator) {
+      console.log('support sw')
+      navigator.serviceWorker.register('sw.js')
+      .then(registration => {
+        // 登録成功
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      }).catch(err => {
+        // 登録失敗 :(
+        console.log('ServiceWorker registration failed: ', err);
+      });
+    }
+
     const { options } = this.props
     const allIllusts = await this.loadContent(options)
 
