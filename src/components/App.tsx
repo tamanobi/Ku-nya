@@ -39,7 +39,6 @@ export default class App extends Component<Props, State> {
 
   async componentDidMount() {
     if ('serviceWorker' in navigator) {
-      console.log('support sw')
       navigator.serviceWorker.register('sw.js')
       .then(registration => {
         // 登録成功
