@@ -30,6 +30,11 @@ jobs:
             apk add --no-cache yarn
             apk add --no-cache zip
       - run:
+          name: 'Setup Environment Variables'
+          command: |
+            echo "export SENTRY_DSN=${SENTRY_DSN}" >> $BASH_ENV
+            source $BASH_ENV
+      - run:
           name: 'Make Extension Production Ready'
           command: |
             yarn install && yarn build
