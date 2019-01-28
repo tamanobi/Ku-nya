@@ -60,6 +60,7 @@ export default class App extends Component<Props, State> {
           illust.height / illust.width <= options.smallestIncludableAspectRatio
         )
       })
+      .slice(0, 100)
 
     this.setState({ illusts })
     this.pendingCount = illusts.length
