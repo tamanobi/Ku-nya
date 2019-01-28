@@ -39,12 +39,14 @@ export default class App extends Component<Props, State> {
 
   async componentDidMount() {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-      .then(registration => {
-        // console.log('ServiceWorker registration successful with scope: ', registration.scope);
-      }).catch(err => {
-        // console.log('ServiceWorker registration failed: ', err);
-      });
+      navigator.serviceWorker
+        .register('sw.js')
+        .then(registration => {
+          // console.log('ServiceWorker registration successful with scope: ', registration.scope);
+        })
+        .catch(err => {
+          // console.log('ServiceWorker registration failed: ', err);
+        })
     }
 
     const { options } = this.props
@@ -72,10 +74,10 @@ export default class App extends Component<Props, State> {
     return mode === Modes.Original
       ? getOriginalRanking()
       : mode === Modes.Newer
-        ? getNewIllusts()
-        : mode === Modes.Popular
-          ? getPopularIllusts()
-          : getRanking(mode)
+      ? getNewIllusts()
+      : mode === Modes.Popular
+      ? getPopularIllusts()
+      : getRanking(mode)
   }
 
   handleLoadOrError = () => {
