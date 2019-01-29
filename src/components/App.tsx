@@ -84,7 +84,7 @@ export default class App extends Component<Props, State> {
     if (--this.pendingCount <= 0) {
       setTimeout(() => {
         this.setState({ isReady: true })
-      }, 125)
+      }, 25)
     }
   }
 
