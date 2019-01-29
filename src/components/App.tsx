@@ -3,9 +3,9 @@ import Illust from './Illust'
 import {
   IllustEntry,
   getOriginalRanking,
-  getRanking,
   getNewIllusts,
   getPopularIllusts,
+  getRanking,
 } from '../lib/api'
 import { Options, Modes } from '../lib/options'
 import { shuffle } from '../lib/util'
@@ -62,7 +62,11 @@ export default class App extends Component<Props, State> {
           illust.height / illust.width <= options.smallestIncludableAspectRatio
         )
       })
-      .slice(0, 100)
+      .filter(illust => {
+        if (illust.sl === null) return true
+        if (options.isSafe) return illust.sl === 2
+        return true
+      })
 
     this.setState({ illusts })
     this.pendingCount = illusts.length

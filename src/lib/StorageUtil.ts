@@ -1,7 +1,7 @@
 export function getBoolean(key: string, _default?: boolean): boolean {
   if (!window.localStorage) return false
-  return window.localStorage.getItem(key) !== null
-    ? window.localStorage.getItem(key) !== '0'
+  return (window.localStorage.getItem(key) !== null)
+    ? (window.localStorage.getItem(key) !== '0')
     : _default
 }
 

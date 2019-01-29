@@ -9,6 +9,9 @@
     "48": "icon/icon48.png",
     "128": "icon/icon128.png"
   },
+  "background": {
+    "scripts": ["background.js"]
+  },
   "chrome_url_overrides": {
     "newtab": "newTab.html"
   },
