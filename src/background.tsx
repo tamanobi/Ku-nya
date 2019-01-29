@@ -11,7 +11,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       sendResponse({ data: 'setMode' })
       break
     case 'setAspectRatioSettings':
-      storageUtil.setValue(
+      storageUtil.setBoolean(
         'is_excluding_high_aspect_ratio',
         request.params.is_excluding_high_aspect_ratio,
       )
@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       sendResponse({ data: 'setExcludingTags' })
       break
     case 'setSafe':
-      storageUtil.setValue('is_safe', request.params.is_safe)
+      storageUtil.setBoolean('is_safe', request.params.is_safe)
       sendResponse({ data: 'setSafe', isSafe: request.params.is_safe })
       break
     default:
