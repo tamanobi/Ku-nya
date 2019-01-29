@@ -21,7 +21,10 @@ self.addEventListener('activate', event => {
 
 self.addEventListener('fetch', event => {
   const requestURL = new URL(event.request.url)
-  if (requestURL.hostname === 'i.pximg.net') {
+  if (
+    requestURL.hostname === 'i.pximg.net' ||
+    requestURL.pathname === '/ajax/user/11/illusts'
+  ) {
     return event.respondWith(
       caches.open(CACHE_NAME).then(cache => {
         return cache.match(event.request).then(response => {

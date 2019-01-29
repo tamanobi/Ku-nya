@@ -1,9 +1,16 @@
 import { h, render } from 'preact'
 import App from './components/App'
 import './lib/requestModifier'
-import { getOptions } from './lib/options'
 
 document.addEventListener('DOMContentLoaded', async event => {
-  const options = getOptions()
-  render(<App options={options} />, document.getElementById('gallery'))
+  chrome.runtime.sendMessage({ method: 'getOptions' }, res => {
+    const options = {
+      mode: res.data.mode,
+      excludingTags: res.data.excludingTags,
+      isExcludingHighAspectRatio: res.data.isExcludingHighAspectRatio,
+      smallestIncludableAspectRatio: res.data.smallestIncludableAspectRatio,
+      isSafe: res.data.isSafe,
+    }
+    render(<App options={options} />, document.getElementById('gallery'))
+  })
 })

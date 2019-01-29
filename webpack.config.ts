@@ -7,6 +7,7 @@ export default (env, argv) =>
     entry: {
       "dist/main": './main.tsx',
       "dist/popup": './popup.tsx',
+      "background": './background.tsx',
       "sw": './sw.js',
     },
     output: {

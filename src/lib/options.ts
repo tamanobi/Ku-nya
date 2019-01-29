@@ -14,6 +14,7 @@ export interface Options {
   excludingTags: string[]
   isExcludingHighAspectRatio: boolean
   smallestIncludableAspectRatio: number
+  isSafe: boolean
 }
 
 export const getOptions = (): Options => ({
@@ -27,14 +28,49 @@ export const getOptions = (): Options => ({
     'smallest_includable_aspect_ratio',
     3,
   ),
+  isSafe: storageUtil.getBoolean('is_safe', true),
 })
 
-export const setMode = (mode: Modes) => storageUtil.setValue('content', mode)
-
-export const setAspectRatioSettings = (isChecked: boolean, value: number) => {
-  storageUtil.setBoolean('is_excluding_high_aspect_ratio', isChecked)
-  storageUtil.setValue('smallest_includable_aspect_ratio', value)
+export const setMode = (mode: Modes) => {
+  chrome.runtime.sendMessage(
+    { method: 'setMode', params: { mode: mode } },
+    () => {},
+  )
 }
 
-export const setExcludingTags = (tags: string[]) =>
-  storageUtil.setJSON('excluding_tags', tags)
+export const setAspectRatioSettings = (isChecked: boolean, value: number) => {
+  chrome.runtime.sendMessage(
+    {
+      method: 'setAspectRatioSettings',
+      params: {
+        is_excluding_high_aspect_ratio: isChecked,
+        smallest_includable_aspect_ratio: value,
+      },
+    },
+    () => {},
+  )
+}
+
+export const setExcludingTags = (tags: string[]) => {
+  chrome.runtime.sendMessage(
+    {
+      method: 'setExcludingTags',
+      params: {
+        excluding_tags: tags,
+      },
+    },
+    () => {},
+  )
+}
+
+export const setSafe = (isSafe: boolean) => {
+  chrome.runtime.sendMessage(
+    {
+      method: 'setSafe',
+      params: {
+        is_safe: isSafe,
+      },
+    },
+    () => {},
+  )
+}

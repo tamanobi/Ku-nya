@@ -8,6 +8,7 @@ export interface IllustEntry {
   width: number
   height: number
   authorName: string
+  sl: number | null
 }
 
 const imageResolution = '480x960'
@@ -39,6 +40,7 @@ export const getNewIllusts = async (): Promise<IllustEntry[]> => {
           width: content.illust_width,
           height: content.illust_height,
           authorName: content.user_name,
+          sl: null,
         }),
       ),
     )
@@ -72,6 +74,7 @@ export const getPopularIllusts = async (): Promise<IllustEntry[]> => {
           width: content.illust_width,
           height: content.illust_height,
           authorName: content.user_name,
+          sl: null,
         }),
       ),
     )
@@ -101,6 +104,7 @@ export const getOriginalRanking = async (): Promise<IllustEntry[]> => {
           width: content.width,
           height: content.height,
           authorName: content.user_name,
+          sl: null,
         }),
       ),
     )
@@ -118,23 +122,42 @@ export const getRanking = async (
     ),
   )
 
+  const id_chunk = responses
+    .filter(res => res.status == 200)
+    .map(res => res.data.contents.map(content => content.illust_id))
+
+  const promises = await Promise.all(id_chunk.map(ids => getIllustsDetail(ids)))
+  return promises.reduce((l, r) => l.concat(...r), []) // flatten
+}
+
+const getIllustsDetail = async (ids: Array<number>): Promise<IllustEntry[]> => {
+  ids = ids.slice(0, 100) // NOTICE: this can't work over 100 ids because endpoint returns 400.
+  const URL = encodeURI(
+    'https://www.pixiv.net/ajax/user/11/illusts?ids[]=' + ids.join('&ids[]='),
+  )
+
+  const responses = await Promise.all([axios.get(URL)])
   return responses
     .filter(res => res.status == 200)
-    .map(res =>
-      res.data.contents.map(
-        (content): IllustEntry => ({
-          id: content.illust_id,
-          imageUrl: content.url.replace(
-            /c\/\d+x\d+\//,
-            `c/${imageResolution}/`,
-          ),
+    .map(res => {
+      const entities = []
+      for (const id in res.data.body) {
+        const content = res.data.body[id]
+        entities.push({
+          id: content.id,
+          imageUrl: content.url
+            .replace(/c\/\d+x\d+\//, `c/${imageResolution}/`)
+            .replace('_square', '_master')
+            .replace('250x250_80_a2', '480x960'),
           title: content.title,
           tags: content.tags,
           width: content.width,
           height: content.height,
           authorName: content.user_name,
-        }),
-      ),
-    )
+          sl: content.sl,
+        })
+      }
+      return entities
+    })
     .reduce((l, r) => l.concat(...r), []) // flatten
 }
