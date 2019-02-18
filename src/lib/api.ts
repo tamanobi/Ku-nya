@@ -40,7 +40,7 @@ export const getNewIllusts = async (): Promise<IllustEntry[]> => {
           width: content.illust_width,
           height: content.illust_height,
           authorName: content.user_name,
-          sl: null,
+          sl: content.illust_sanity_level,
         }),
       ),
     )
@@ -74,7 +74,7 @@ export const getPopularIllusts = async (): Promise<IllustEntry[]> => {
           width: content.illust_width,
           height: content.illust_height,
           authorName: content.user_name,
-          sl: null,
+          sl: content.illust_sanity_level,
         }),
       ),
     )
