@@ -17,10 +17,10 @@ export const getNewIllusts = async (): Promise<IllustEntry[]> => {
   const URL =
     'https://www.pixiv.net/touch/ajax_api/ajax_api.php?mode=new_illust'
   const responses = await Promise.all([
-    axios.get(`${URL}&p=1`),
-    axios.get(`${URL}&p=2`),
-    axios.get(`${URL}&p=3`),
     axios.get(`${URL}&p=4`),
+    axios.get(`${URL}&p=5`),
+    axios.get(`${URL}&p=6`),
+    axios.get(`${URL}&p=7`),
   ])
 
   return responses
