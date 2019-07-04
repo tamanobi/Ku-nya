@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@types/axios": "0.14.0",
-    "@types/cheerio": "0.22.9",
+    "@types/cheerio": "0.22.12",
     "@types/chrome": "^0.0.75",
     "@types/webpack": "4.4.18",
     "prettier": "^1.15.2",
