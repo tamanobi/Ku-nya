@@ -56,7 +56,7 @@ export const setExcludingTags = (tags: string[]) => {
     {
       method: 'setExcludingTags',
       params: {
-        excluding_tags: tags,
+        tags,
       },
     },
     () => {},
