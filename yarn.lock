@@ -54,9 +54,11 @@
   dependencies:
     axios "*"
 
-"@types/cheerio@0.22.9":
-  version "0.22.9"
-  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.9.tgz#b5990152604c2ada749b7f88cab3476f21f39d7b"
+"@types/cheerio@0.22.30":
+  version "0.22.30"
+  resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.30.tgz#6c1ded70d20d890337f0f5144be2c5e9ce0936e6"
+  dependencies:
+    "@types/node" "*"
 
 "@types/chrome@^0.0.75":
   version "0.0.75"
